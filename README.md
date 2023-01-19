@@ -7,7 +7,7 @@ To compile the source code, run build.sh
 
 Then run jc.sh and supply with an argument (Either a .jack file or a directory)
 
-The Pong directory has a sample Jack program.
+The Pong directory has a sample Jack program in it.
 
 To compile the Jack program inside the Pong directory on your shell, you can write:
 
