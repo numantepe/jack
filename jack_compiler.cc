@@ -1,17 +1,15 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
 #include <dirent.h>
-#include <ctype.h>
+#include <cctype>
 
 #define TRUE 1
 #define FALSE 0
 #define DEBUG_PRINT printf
-
-typedef int bool;
 
 // Global Variables
 bool g_key_ignore = FALSE;

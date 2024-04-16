@@ -1,8 +1,8 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdint.h>
-#include <string.h>
-#include <ctype.h>
+#include <cstdio>
+#include <cstdlib>
+#include <cstdint>
+#include <cstring>
+#include <cctype>
 
 #define HASH_TABLE_SIZE 101
 typedef int32_t bool32;

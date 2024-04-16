@@ -6,8 +6,6 @@
 #include <unistd.h>
 #include <dirent.h>
 
-#define NONE -1
-
 char* file_name;
 
 int caller_ret_i;
@@ -24,13 +22,15 @@ typedef enum {
     NEG, EQ, GT, LT, 
     AND, OR, NOT, POP,
     LABEL, IF_GOTO, GOTO,
-    CALL, FUNCTION, RETURN
+    CALL, FUNCTION, RETURN,
+    NONE_ct
 } parser_command_type;
 
 typedef enum {
    CONSTANT, LOCAL, ARGUMENT,
    THIS, THAT, TEMP,
-   STATIC, POINTER 
+   STATIC, POINTER,
+   NONE_a1t 
 } parser_arg1_type;
 
 typedef struct {
@@ -90,7 +90,7 @@ void tokenize(char* instruction, tokenizer* tt)
 void parse(tokenizer* tt, parser* pp)
 {
     if(tt->command == NULL)
-        pp->command_type = NONE;
+        pp->command_type = NONE_ct;
     else if(strcmp(tt->command, "push") == 0)
         pp->command_type = PUSH;
     else if(strcmp(tt->command, "add") == 0)
@@ -127,7 +127,7 @@ void parse(tokenizer* tt, parser* pp)
         pp->command_type = RETURN;
 
     if(tt->arg1 == NULL)
-        pp->arg1_type = NONE;
+        pp->arg1_type = NONE_a1t;
     else if(strcmp(tt->arg1, "constant") == 0)
         pp->arg1_type = CONSTANT;
     else if(strcmp(tt->arg1, "local") == 0)
@@ -601,8 +601,8 @@ void translate(FILE **in, FILE **out)
         {
             fprintf(*out, "//%s\n", instruction);
 
-            tokenizer tt = {0};
-            parser pp = {0};
+            tokenizer tt = {};
+            parser pp = {};
 
             tokenize(instruction, &tt);
 
@@ -691,8 +691,8 @@ int main(int argc, char *argv[])
 
         char callsysinit[] = "call Sys.init 0";
         fprintf(out, "//%s\n", callsysinit);
-        tokenizer tt = {0};
-        parser pp = {0};
+        tokenizer tt = {};
+        parser pp = {};
         tokenize(callsysinit, &tt);
         parse(&tt, &pp);
         write_to_file(&tt, &pp, &out);
